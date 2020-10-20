@@ -1,12 +1,3 @@
-html {
-  max-width: 100vw;
-}
-.textfield {
-}
-
-.app {
-}
-
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -19,6 +10,42 @@ html {
   border-radius: 5px;
   background: $color-secondary;
 }
-button:focus {
-  outline: none;
+
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+svg {
+  min-width: 15px;
+}
+
+select {
+  font-size: $base-font-size;
+  background-color: Transparent;
+  color: #212b36;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+  background-image: linear-gradient(45deg, transparent 50%, black 50%),
+    linear-gradient(135deg, black 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+  background-size: 5px 5px, 5px 5px, 1px 1.5em;
+  background-repeat: no-repeat;
+
+  &:focus {
+    background-image: linear-gradient(45deg, black 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, black 50%);
+    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-repeat: no-repeat;
+    outline: 0;
+  }
+}
+
+//consider other option
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color: $color-secondary !important;
 }

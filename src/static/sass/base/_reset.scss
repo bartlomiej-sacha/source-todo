@@ -129,4 +129,20 @@ table {
 
 button {
   text-decoration: none;
+  outline-style: none;
+  border: none;
+  cursor: pointer;
+}
+
+select {
+  margin: 0;
+  border: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  &:focus {
+    outline: 0 !important;
+  }
 }
