@@ -1,4 +1,4 @@
-# My latest react project denta-app:
+# ToDo List Project
 
 Live demo of this project: https://source-todo.netlify.app/
 
