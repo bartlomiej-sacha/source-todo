@@ -1,30 +1,43 @@
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 2px;
 }
+
 ::-webkit-scrollbar-track {
   background: white;
   border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background: $color-secondary;
 }
 
 .App {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  @include mq(sm) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-svg {
+.btn-svg {
+  //mozilla solution for empty svgs
+  max-width: 15px;
+  //chrome solution
   min-width: 15px;
+  background-color: Transparent;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+  outline: 0;
 }
 
 select {
   font-size: $base-font-size;
   background-color: Transparent;
-  color: #212b36;
   line-height: 1.5em;
   padding: 0.5em 3.5em 0.5em 1em;
   background-image: linear-gradient(45deg, transparent 50%, black 50%),
@@ -35,17 +48,29 @@ select {
   background-repeat: no-repeat;
 
   &:focus {
-    background-image: linear-gradient(45deg, black 50%, transparent 50%),
-      linear-gradient(135deg, transparent 50%, black 50%);
+    background-image: linear-gradient(
+        45deg,
+        $color-secondary 50%,
+        transparent 50%
+      ),
+      linear-gradient(135deg, transparent 50%, $color-secondary 50%);
     background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em,
       calc(100% - 2.5em) 0.5em;
     background-size: 5px 5px, 5px 5px, 1px 1.5em;
     background-repeat: no-repeat;
-    outline: 0;
   }
 }
 
 //consider other option
 .MuiCheckbox-colorSecondary.Mui-checked {
   color: $color-secondary !important;
+}
+
+.MuiButton-colorInherit {
+  color: $color-secondary;
+}
+
+.MuiFormHelperText-root {
+  position: absolute;
+  top: 45px;
 }

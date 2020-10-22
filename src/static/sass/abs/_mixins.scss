@@ -7,3 +7,13 @@
     @content;
   }
 }
+
+@mixin mq-landscape($mq-breakpoint, $mq-breakpoints: $breakpoints) {
+  @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+    $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+  }
+
+  @media (min-width: #{$mq-breakpoint}) and (orientation: landscape) {
+    @content;
+  }
+}

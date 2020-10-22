@@ -1,55 +1,122 @@
-table {
-  border: 1px solid $color-gray;
-}
-
-table tr:hover {
-  background-color: #ddd;
-}
-
-table td {
-  padding: 26px;
-  border-bottom: 1px solid $color-gray;
-}
-
-table th {
-  padding: 26px;
-  text-align: left;
-  background-color: $color-primary;
-  color: rgba(white, 0.9);
-  border-bottom: 1px solid $color-gray;
-}
-
 .wrapper {
+  margin-top: $main-spacing;
+  @include mq(sm) {
+    width: 50%;
+  }
+}
+
+.table {
   width: 100%;
-  @include mq(xs) {
-    width: 80%;
+
+  border-left: 1px solid $color-gray;
+  border-right: 1px solid $color-gray;
+  border-top: 1px solid $color-gray;
+
+  &__th {
+    padding: $main-spacing $main-spacing / 4;
+
+    color: rgba(white, 0.9);
+    background-color: $color-primary;
+    border-bottom: 1px solid $color-gray;
+
+    @include mq(sm) {
+      padding: $main-spacing;
+    }
+  }
+
+  &__body {
+    display: block;
+    height: 75vh;
+    overflow-y: scroll;
+
+    @include mq(sm) {
+      display: table-row-group;
+    }
+
+    @include mq-landscape(xss) {
+      height: 55vh;
+    }
+  }
+
+  &__tr {
+    table-layout: fixed;
+    display: table;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid $color-gray;
+    transition: display 0.3s;
+
+    @include mq(sm) {
+      display: table-row;
+      width: initial;
+    }
+
+    &:hover {
+      background-color: #ddd;
+      & .column__delete {
+        & .btn-svg--delete {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__td {
+    padding: $main-spacing / 2 $main-spacing / 4;
+    vertical-align: middle;
+
+    @include mq(sm) {
+      padding: $main-spacing;
+    }
+  }
+
+  &__sort-indicator {
+    position: absolute;
+    filter: invert(62%) sepia(62%) saturate(567%) hue-rotate(346deg)
+      brightness(97%) contrast(98%);
   }
 }
 
 .pagination {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  padding: 26px;
-  border-bottom: 1px solid $color-gray;
-  border-right: 1px solid $color-gray;
-  border-left: 1px solid $color-gray;
+  display: none;
 
-  & > * {
-    white-space: nowrap;
+  @include mq(sm) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding: $main-spacing;
+    border-bottom: 1px solid $color-gray;
+    border-right: 1px solid $color-gray;
+    border-left: 1px solid $color-gray;
+    & > * {
+      margin: 0 10px;
+    }
   }
 }
 
-.button--svg {
-  background-color: Transparent;
-
-  &:active {
-    filter: invert(63%) sepia(69%) saturate(628%) hue-rotate(338deg)
-      brightness(101%) contrast(93%);
+.btn-svg {
+  &--page:hover {
+    filter: invert(62%) sepia(62%) saturate(567%) hue-rotate(346deg)
+      brightness(97%) contrast(98%);
   }
 }
 
 .column__name {
-  width: 100%;
+  text-align: left;
+  min-width: 50%;
+}
+
+.column__priority {
+  width: 107px;
+}
+
+.column__done {
+  width: 60px;
+  text-align: center;
+}
+
+.column__delete {
+  width: 60px;
+  text-align: center;
 }

@@ -1,0 +1,20 @@
+.btn-svg--delete {
+  width: 24px;
+  height: 24px;
+
+  vertical-align: middle;
+  color: $color-gray;
+
+  &:hover {
+    color: red;
+  }
+
+  &:active {
+    color: red;
+  }
+
+  @include mq(sm) {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+}
