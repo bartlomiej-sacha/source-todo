@@ -5,11 +5,11 @@ const EditableCheckBox = ({
   value: initialValue,
   row: {index},
   column: {id},
-  updateMyData,
+  updateRow,
 }) => {
   const handleChange = useCallback(() => {
-    return updateMyData(index, id, !initialValue);
-  }, [id, index, initialValue, updateMyData]);
+    return updateRow(index, id, !initialValue);
+  }, [id, index, initialValue, updateRow]);
 
   return (
     <Checkbox

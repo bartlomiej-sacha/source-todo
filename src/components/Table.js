@@ -1,4 +1,11 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import _ from 'lodash';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {usePagination, useSortBy, useTable} from 'react-table';
 import DATA from '../static/data/data.json';
 import {ReactComponent as BackArrow} from '../static/images/back-arrow.svg';
@@ -7,12 +14,32 @@ import {order} from '../utils/utils';
 import DeleteButton from './DeleteButton';
 import EditableCheckBox from './EditableCheckBox';
 import RowForm from './RowForm';
+import RowItem from './RowItem';
 
 function Table() {
   const refTr = useRef(null);
   const [dataArray, setDataArray] = useState([]);
+  const [width, setWidth] = useState(window.innerWidth);
+  const skipPageResetRef = React.useRef();
 
-  const updateMyData = (rowIndex, columnId, value) => {
+  useLayoutEffect(() => {
+    const debouncedUpdateSize = _.debounce(function () {
+      setWidth(window.innerWidth);
+    }, 250);
+
+    if (width <= 880) {
+      //inf scroll asap
+      setPageSize(20);
+    } else {
+      setPageSize(5);
+    }
+    window.addEventListener('resize', debouncedUpdateSize);
+
+    return () => window.removeEventListener('resize', debouncedUpdateSize);
+  }, [width]);
+
+  const updateRow = (rowIndex, columnId, value) => {
+    skipPageResetRef.current = true;
     setDataArray(old =>
       old.map((row, index) => {
         if (index === rowIndex) {
@@ -26,10 +53,22 @@ function Table() {
     );
   };
 
-  const deleteMyData = index => {
+  const deleteRow = index => {
+    skipPageResetRef.current = true;
     const tmpArray = [...dataArray];
     tmpArray.splice(index, 1);
     setDataArray([...tmpArray]);
+    if (page.length === 1 && !canNextPage) {
+      previousPage();
+    }
+  };
+
+  const addRow = values => {
+    skipPageResetRef.current = true;
+    setDataArray(prevState => [
+      ...prevState,
+      {...values, id: prevState.length + 1},
+    ]);
   };
 
   useEffect(() => {
@@ -44,8 +83,10 @@ function Table() {
   }, []);
 
   useEffect(() => {
+    skipPageResetRef.current = false;
+
     localStorage.setItem('myData', JSON.stringify(dataArray));
-  }, [dataArray.length]);
+  }, [dataArray]);
 
   const columns = useMemo(
     () => [
@@ -127,19 +168,24 @@ function Table() {
     nextPage,
     previousPage,
     setPageSize,
-    gotoPage,
     state: {pageIndex, pageSize},
   } = useTable(
     {
       columns: columns,
       data: dataArray,
-      autoResetPage: true,
       initialState: {
-        //inf
-        pageSize: window.innerWidth < 880 ? 500 : 5,
+        pageSize: 5,
       },
-      updateMyData,
-      deleteMyData,
+      autoResetPage: !skipPageResetRef.current,
+      autoResetExpanded: !skipPageResetRef.current,
+      autoResetGroupBy: !skipPageResetRef.current,
+      autoResetSelectedRows: !skipPageResetRef.current,
+      autoResetSortBy: !skipPageResetRef.current,
+      autoResetFilters: !skipPageResetRef.current,
+      autoResetRowState: !skipPageResetRef.current,
+      updateRow,
+      deleteRow,
+      addRow,
     },
     useSortBy,
     usePagination,
@@ -192,24 +238,16 @@ function Table() {
               </tr>
             ))}
           </thead>
-          <tbody ref={refTr} className="table__body" {...getTableBodyProps()}>
+          <tbody
+            pageindex={pageIndex}
+            pagesize={pageSize}
+            ref={refTr}
+            className="table__body"
+            {...getTableBodyProps()}
+          >
             {page.map((row, i) => {
               prepareRow(row);
-              return (
-                <tr key={i} className="table__tr" {...row.getRowProps()}>
-                  {row.cells.map((cell, j) => {
-                    return (
-                      <td
-                        key={j}
-                        className={`${cell.column.className} table__td`}
-                        {...cell.getCellProps}
-                      >
-                        {cell.render('Cell')}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
+              return <RowItem i={i} key={i} row={row}></RowItem>;
             })}
           </tbody>
         </table>
@@ -247,11 +285,7 @@ function Table() {
             <ForwardArrow />
           </button>
         </div>
-        <RowForm
-          setData={setDataArray}
-          pageHandler={gotoPage}
-          lastId={dataArray.length + 1}
-        />
+        <RowForm addRow={addRow} />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 .wrapper {
+  //change to grid / grid with divs
   margin-top: $main-spacing;
   @include mq(sm) {
     width: 50%;
@@ -44,7 +45,6 @@
     text-align: left;
     width: 100%;
     border-bottom: 1px solid $color-gray;
-    transition: display 0.3s;
 
     @include mq(sm) {
       display: table-row;
@@ -105,10 +105,11 @@
 .column__name {
   text-align: left;
   min-width: 50%;
+  word-break: break-all;
 }
 
 .column__priority {
-  width: 107px;
+  width: 80px;
 }
 
 .column__done {
@@ -117,6 +118,6 @@
 }
 
 .column__delete {
-  width: 60px;
+  width: 52px;
   text-align: center;
 }

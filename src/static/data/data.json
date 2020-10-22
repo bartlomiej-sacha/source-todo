@@ -32,42 +32,36 @@
     },
     {
       "id": 6,
-      "task_name": "Learn apex",
-      "priority": "High",
-      "is_done": false
-    },
-    {
-      "id": 7,
       "task_name": "Learn aura",
       "priority": "High",
       "is_done": false
     },
     {
-      "id": 8,
+      "id": 7,
       "task_name": "Learn lwc",
       "priority": "High",
       "is_done": false
     },
     {
-      "id": 9,
+      "id": 8,
       "task_name": "Create lwc component",
       "priority": "High",
       "is_done": true
     },
     {
-      "id": 10,
+      "id": 9,
       "task_name": "Get Adventurer rank on Trailhead",
       "priority": "High",
       "is_done": true
     },
     {
-      "id": 11,
+      "id": 10,
       "task_name": "Finish assignment",
       "priority": "High",
-      "is_done": false
+      "is_done": true
     },
     {
-      "id": 12,
+      "id": 11,
       "task_name": "Convert a lead to account",
       "priority": "High",
       "is_done": false

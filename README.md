@@ -5,23 +5,23 @@ Live demo of this project: https://source-todo.netlify.app/
 This is fully working ToDo React Web App with the following characteristics:
 
 - Based on create-react-app
-- Designed based on specified requirements
 - Responsive Web Design UI/UX
-- [Sass](https://github.com/sass/sass) for styling
-- [Material-UI](https://github.com/mui-org/material-ui) for styling
-- [react-table](https://github.com/tannerlinsley/react-table) for table controlling using hooks
+- Designed based on specified requirements
+- [react-table](https://github.com/tannerlinsley/react-table) for controlling table
+- [Material-UI](https://github.com/mui-org/material-ui) for form styling
 - [formik](https://github.com/formium/formik) for form management
 - [yup](https://github.com/jquense/yup) for form validation
 - [gsap](https://github.com/greensock/GSAP) for animation
+- [Sass](https://github.com/sass/sass) for styling
 
 Main purpose of this project was to create ToDo list application based on these requirements:
 
-- sorting
+- data persistence
 - editable column
 - deletable rows
 - rows adding
 - pagination
-- data persitance
+- sorting
 - rwd
 
 ## Getting this App up and running

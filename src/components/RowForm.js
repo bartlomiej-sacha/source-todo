@@ -21,11 +21,10 @@ const theme = createMuiTheme({
   },
 });
 
-function RowForm({setData}) {
+function RowForm({addRow}) {
   const handleSubmit = async (values, {resetForm}) => {
     await sleep(300);
-    //check
-    setData(prevState => [...prevState, {...values, id: prevState.length + 1}]);
+    addRow(values);
     resetForm();
   };
 
